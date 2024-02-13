@@ -15,7 +15,7 @@ RUN apt update && apt install -y net-tools \
 	netcat \
 	ncat 
 
-COPY ./page/ /var/www/html
-COPY ./resources/script.sh /tmp/script.sh
-
-ENTRYPOINT  ./tmp/script.sh  && service apache2 start &&  /bin/bash
+ENTRYPOINT 	chmod +x /tmp/script.sh && \
+		./tmp/script.sh && \
+		apache2ctl -D FOREGROUND && \
+		tail -f /dev/null
