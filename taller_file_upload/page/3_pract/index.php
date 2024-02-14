@@ -4,11 +4,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $archivo = $_FILES['archivo'];
 
         // Verificar el Content-Type del archivo
-        $handle = fopen($destino, "r");
-        $primerosBytes = fgets($handle, 6);
-        fclose($handle);
-        $destino = $archivo['name'];
-        if ($primerosBytes === "%PDF-") {
+        if ($archivo['type'] == 'image/jpeg') {
+            // Ruta donde se guardará el archivo
+            $destino = $archivo['name'];
 
             // Mover el archivo al directorio de destino
             if (move_uploaded_file($archivo['tmp_name'], $destino)) {
