@@ -1,31 +1,29 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Comprobando si el archivo ha sido cargado
     if (isset($_FILES['archivo'])) {
         $archivo = $_FILES['archivo'];
-        $contenidoArchivo = file_get_contents($archivo['tmp_name']);
-        $longitudMaxima = strlen('solo_tienes_23_letras:)');
-        // Verificar si la longitud del contenido del archivo no excede la longitud máxima permitida
-        if (strlen($contenidoArchivo) > $longitudMaxima) {
-            echo "Error: El archivo excede la longitud máxima permitida.";
-        } else {
-            // Ruta donde se guardará el archivo
-            $destino = $archivo['name'];
-
-            // Mover el archivo al directorio de destino
-            if (move_uploaded_file($archivo['tmp_name'], $destino)) {
-                echo "Archivo subido exitosamente! ";
-                // Mostrar enlace al archivo
-                echo "<a href='" . htmlspecialchars($destino) . "'>Haga clic aquí para acceder al archivo</a>";
+        if (preg_match('/\.jpg/i', $archivo['name']) && $archivo['type'] == 'image/jpeg') {
+            $handle = fopen($archivo['tmp_name'], "rb"); 
+            $primerosBytes = fread($handle, 2); 
+            fclose($handle);
+            if ($primerosBytes === "\xFF\xD8") {
+                $destino = $archivo['name'];
+                if (move_uploaded_file($archivo['tmp_name'], $destino)) {
+                    echo "¡Archivo subido exitosamente! ";
+                    echo "<a href='" . htmlspecialchars($destino) . "'>Haga clic aquí para acceder al archivo</a>";
+                } else {
+                    echo "Error al subir el archivo.";
+                }
             } else {
-                echo "Error al subir el archivo.";
+                echo "Error: El archivo no es JPEG.";
             }
+        } else {
+            echo "Error: Solo se permiten archivos .jpg";
         }
     }
 }
 ?>
 
-<!-- Formulario HTML para la subida de archivos -->
 <form method="post" enctype="multipart/form-data">
     <label for="archivo">Elija un archivo para subir:</label>
     <input type="file" name="archivo" id="archivo">
