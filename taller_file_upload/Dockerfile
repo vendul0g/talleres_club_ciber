@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-MAINTAINER Club_ciberseguridad_FIUM
+LABEL maintainer="Club_ciberseguridad_FIUM"
 
 ENV DEBIAN_FRONTEND noninteractive
 

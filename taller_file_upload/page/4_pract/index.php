@@ -2,24 +2,26 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES['archivo'])) {
         $archivo = $_FILES['archivo'];
-
-        // Verificar el Content-Type del archivo
-        $handle = fopen($destino, "r");
-        $primerosBytes = fgets($handle, 6);
-        fclose($handle);
         $destino = $archivo['name'];
-        if ($primerosBytes === "%PDF-") {
 
-            // Mover el archivo al directorio de destino
-            if (move_uploaded_file($archivo['tmp_name'], $destino)) {
+        // Mover el archivo temporal al directorio de destino primero
+        if (move_uploaded_file($archivo['tmp_name'], $destino)) {
+            // Verificar el Content-Type del archivo después de moverlo
+            $handle = fopen($destino, "r");
+            $primerosBytes = fgets($handle, 6);
+            fclose($handle);
+
+            if ($primerosBytes === "%PDF-") {
                 echo "¡Archivo subido exitosamente! ";
                 // Mostrar enlace al archivo
-                echo "<a href='" . htmlspecialchars($destino) . "'>Haga clic aquí para acceder al archivo</a>";
+                // echo "<a href='" . htmlspecialchars($destino) . "'>Haga clic aquí para acceder al archivo</a>";
             } else {
-                echo "Error al subir el archivo.";
+                echo "Error: Solo se permiten archivos PDF.";
+                // Eliminar el archivo si no es PDF
+                unlink($destino);
             }
         } else {
-            echo "Error: Solo se permiten archivos JPEG.";
+            echo "Error al subir el archivo.";
         }
     }
 }
