@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>signup</title>
+	<style>
+		body{
+			background-image: url(img1.png);
+			background-size: cover;
+			background-position: center;
+			overflow: hidden;
+			background-attachment: fixed;
+
+		}
+		.tab {
+  			
+  			width: 450px;
+  			border:none;
+  			
+  			text-align: center;
+  			padding:30px;
+			margin:auto;
+
+
+		}
+		.signintab, .signuptab{
+			
+			border-radius: 0px;
+			color: black;
+			text-align: center;
+			border: 2px solid #555555;
+			
+
+
+		}
+		.signintab, .signuptab:hover {
+ 			background-color: #555555;
+  			color: white;
+  			transition: 0.6s;
+  			box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+		}
+		.signintab, .signuptab.active {
+ 			background-color: #555555;
+  			color: white;
+  			transition: 0.6s;
+  			box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+		}
+		.signup,.signin{
+			
+			width: 450px;
+			box-shadow: 0 0 3px 0 rgba(0,0,0,0.3);
+			background:#fff;
+			padding:20px;
+			margin: auto;
+			text-align: center; 
+			
+			transition: 0.6s ease;
+			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+		}
+		.input-box{
+			
+			width: 95%;
+			padding: 10px;
+			margin: 10px 0;
+			border: 1px solid #999;
+			outline: none;
+			border: none;
+  			border-bottom: 0.5px solid grey;
+		}
+		button{
+			color: #fff;
+			margin:10px 0;
+			padding: 10px;
+			width:200px;
+			border-radius: 20px;
+			border: none;font-size: 15px;
+			outline: none;
+			cursor: pointer;
+		}
+		.signupbtn{
+			background-color: #39E816;
+
+		}
+
+	</style>
+	<script>
+
+
+
+	</script>
+</head>
+<body>
+
+        <div id="Tab1Content" class="signin">
+
+                <form action="signup.php" method="post">
+                        <input type="text" name="nombre" class="input-box" placeholder="Enter your Username"><br>
+                        <input type="password" name="contrasena" class="input-box" placeholder="Enter your Password">
+                        <p><a href="">Forgot Password?</a></p>
+                        <button type="submit" class="signupbtn">Sign Up</button>
+                </form>
+
+        </div>
+
+
+
+</body>
+</html>
